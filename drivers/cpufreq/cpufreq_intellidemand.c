@@ -46,7 +46,7 @@
 #define BOOSTED_SAMPLING_DOWN_FACTOR		(10)
 #define MAX_SAMPLING_DOWN_FACTOR		(100000)
 #define MICRO_FREQUENCY_DOWN_DIFFERENTIAL	(3)
-#define MICRO_FREQUENCY_UP_THRESHOLD		(75)
+#define MICRO_FREQUENCY_UP_THRESHOLD		(95)
 #define MICRO_FREQUENCY_MIN_SAMPLE_RATE		(15000)
 #define MIN_FREQUENCY_UP_THRESHOLD		(11)
 #define MAX_FREQUENCY_UP_THRESHOLD		(100)
@@ -184,6 +184,7 @@ static struct dbs_tuners {
 	.sync_freq = DBS_SYNC_FREQ,
 	.optimal_freq = DBS_OPTIMAL_FREQ,
 	.freq_boost_time = DEFAULT_FREQ_BOOST_TIME,
+	.boostfreq = 1036800,
 	.two_phase_freq = 1267200,
 };
 
