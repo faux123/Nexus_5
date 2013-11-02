@@ -63,6 +63,7 @@ include/config
 include/linux/version.h
 include/generated
 arch/*/include/generated
+arch/arm/mach-msm/smd_rpc_sym.c
 
 # stgit generated dirs
 patches-*
@@ -84,3 +85,8 @@ GTAGS
 *.orig
 *~
 \#*#
+
+#user ignores
+mkzip.sh
+out/
+ramfs/
