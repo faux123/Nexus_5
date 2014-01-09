@@ -281,8 +281,7 @@ source "fs/nls/Kconfig"
 source "fs/dlm/Kconfig"
 
 config ASYNC_FSYNC
-	bool
-	string "asynchronous fsync"
+	bool "asynchronous fsync"
 	default y
 
 config DYNAMIC_FSYNC
