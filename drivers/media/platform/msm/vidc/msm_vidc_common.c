@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -487,6 +487,14 @@ static void handle_event_change(enum command_response cmd, void *data)
 					__func__, inst,
 					event_notify->packet_buffer,
 					event_notify->exra_data_buffer);
+
+				if (inst->state == MSM_VIDC_CORE_INVALID ||
+					inst->core->state ==
+						VIDC_CORE_INVALID) {
+					dprintk(VIDC_DBG,
+						"Event release buf ref received in invalid state - discard\n");
+					return;
+				}
 
 				/*
 				* Get the buffer_info entry for the
@@ -2611,9 +2619,6 @@ void msm_comm_flush_dynamic_buffers(struct msm_vidc_inst *inst)
 				dprintk(VIDC_DBG,
 					"released buffer held in driver before issuing flush: 0x%x fd[0]: %d\n",
 					binfo->device_addr[0], binfo->fd[0]);
-				/*delete this buffer info from registered list*/
-				list_del(&binfo->list);
-				kfree(binfo);
 				/*send event to client*/
 				v4l2_event_queue_fh(&inst->event_handler,
 					&buf_event);
@@ -2659,6 +2664,9 @@ int msm_comm_flush(struct msm_vidc_inst *inst, u32 flags)
 		dprintk(VIDC_INFO, "Input only flush not supported\n");
 		return 0;
 	}
+	mutex_lock(&inst->sync_lock);
+	msm_comm_flush_dynamic_buffers(inst);
+	mutex_unlock(&inst->sync_lock);
 	if (inst->state == MSM_VIDC_CORE_INVALID ||
 			core->state == VIDC_CORE_INVALID) {
 		dprintk(VIDC_ERR,

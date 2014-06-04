@@ -995,6 +995,7 @@ int32_t msm_sensor_power_up(struct msm_sensor_ctrl_t *s_ctrl)
 	struct msm_sensor_power_setting_array *power_setting_array = NULL;
 	struct msm_sensor_power_setting *power_setting = NULL;
 	struct msm_camera_sensor_board_info *data = s_ctrl->sensordata;
+	s_ctrl->stop_setting_valid = 0;
 
 	CDBG("%s:%d\n", __func__, __LINE__);
 	power_setting_array = &s_ctrl->power_setting_array;
@@ -1327,7 +1328,6 @@ static int msm_sensor_config_mt9m114b(struct msm_sensor_ctrl_t *s_ctrl,
 						&data, MSM_CAMERA_I2C_WORD_DATA);
 				if (rc < 0) {
 					pr_err("%s:%d failed\n", __func__, __LINE__);
-					rc = -EFAULT;
 					break;
 				}
 
@@ -1355,7 +1355,6 @@ static int msm_sensor_config_mt9m114b(struct msm_sensor_ctrl_t *s_ctrl,
 					&data, MSM_CAMERA_I2C_WORD_DATA);
 			if (rc < 0) {
 				pr_err("%s:%d failed\n", __func__, __LINE__);
-				rc = -EFAULT;
 				break;
 			}
 
@@ -1370,7 +1369,6 @@ static int msm_sensor_config_mt9m114b(struct msm_sensor_ctrl_t *s_ctrl,
 					data, MSM_CAMERA_I2C_WORD_DATA);
 			if (rc < 0) {
 				pr_err("%s:%d failed\n", __func__, __LINE__);
-				rc = -EFAULT;
 				break;
 			}
 
@@ -1386,7 +1384,6 @@ static int msm_sensor_config_mt9m114b(struct msm_sensor_ctrl_t *s_ctrl,
 					conf_array.reg_setting[i].reg_data, conf_array.data_type);
 			if (rc < 0) {
 				pr_err("%s:%d failed\n", __func__, __LINE__);
-				rc = -EFAULT;
 				break;
 			}
 		}
