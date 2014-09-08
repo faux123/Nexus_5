@@ -1942,6 +1942,12 @@ int __devinit msm_thermal_init(struct msm_thermal_data *pdata)
 	if (num_possible_cpus() > 1)
 		register_cpu_notifier(&msm_thermal_cpu_notifier);
 
+	/* emulate default behavior */
+	disable_msm_thermal();
+	hotplug_init();
+	freq_mitigation_init();
+	enabled = 0;
+
 	return ret;
 }
 
