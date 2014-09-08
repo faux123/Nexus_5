@@ -849,7 +849,8 @@ static int set_threshold(uint32_t zone_id,
 	long temp;
 
 	if ((!threshold) || (zone_id >= max_tsens_num)) {
-		pr_err("%s: Invalid input for threshold\n", KBUILD_MODNAME);
+		pr_err("%s: Invalid input for threshold: zone id: %u\n",
+			KBUILD_MODNAME, zone_id);
 		ret = -EINVAL;
 		goto set_threshold_exit;
 	}
