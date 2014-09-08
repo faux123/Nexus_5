@@ -849,7 +849,7 @@ static int set_threshold(uint32_t zone_id,
 	long temp;
 
 	if ((!threshold) || (zone_id >= max_tsens_num)) {
-		pr_err("%s: Invalid input\n", KBUILD_MODNAME);
+		pr_err("%s: Invalid input for threshold\n", KBUILD_MODNAME);
 		ret = -EINVAL;
 		goto set_threshold_exit;
 	}
@@ -1527,7 +1527,8 @@ int msm_thermal_set_frequency(uint32_t cpu, uint32_t freq, bool is_max)
 	int ret = 0;
 
 	if (cpu >= num_possible_cpus()) {
-		pr_err("%s: Invalid input\n", KBUILD_MODNAME);
+		pr_err("%s: Invalid input %u for frequency\n", KBUILD_MODNAME,
+			cpu);
 		ret = -EINVAL;
 		goto set_freq_exit;
 	}
